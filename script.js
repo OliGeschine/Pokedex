@@ -2,20 +2,47 @@ let allPokemonData = [];
 let displayLimit = 20;
 let BASE_URL = "https://pokeapi.co/api/v2/pokemon/";
 let totalPokemon = 1025;
+let initialLoadCount = 10;
+let batchSize = 50;
+let minSpinnerTime = 4000;
 
 async function fetchAllPokemon() {
+    let startTime = Date.now();
     showLoadingSpinner();
     allPokemonData = [];
 
-    if (loadFromCache()) return;
+    if (loadFromCache(startTime)) return;
 
-    for (let i = 1; i <= totalPokemon; i++) {
-        await fetchPokemon(i);
-        if (allPokemonData.length >= displayLimit) updateDisplay();
-    }
+    await fetchInitialPokemon();
+    await fetchRemainingPokemon();
 
     saveToCache();
-    hideLoadingSpinner();
+    updateDisplay();
+
+    let elapsedTime = Date.now() - startTime;
+    let remainingTime = Math.max(0, minSpinnerTime - elapsedTime);
+
+    setTimeout(() => hideLoadingSpinner(), remainingTime);
+}
+
+async function fetchInitialPokemon() {
+    await fetchPokemonBatch(1, initialLoadCount);
+}
+
+async function fetchRemainingPokemon() {
+    for (let start = initialLoadCount + 1; start <= totalPokemon; start += batchSize) {
+        let end = Math.min(start + batchSize - 1, totalPokemon);
+        await fetchPokemonBatch(start, end);
+        allPokemonData.sort((a, b) => a.id - b.id);
+    }
+}
+
+async function fetchPokemonBatch(start, end) {
+    let promises = [];
+    for (let i = start; i <= end; i++) {
+        promises.push(fetchPokemon(i));
+    }
+    await Promise.all(promises);
 }
 
 async function fetchPokemon(id) {
@@ -30,14 +57,18 @@ async function fetchPokemon(id) {
     }
 }
 
-function loadFromCache() {
+function loadFromCache(startTime) {
     let cachedData = localStorage.getItem("pokemonData");
     if (!cachedData) return false;
 
     allPokemonData = JSON.parse(cachedData).map(sortPokemonData);
 
     updateDisplay();
-    hideLoadingSpinner();
+
+    let elapsedTime = Date.now() - startTime;
+    let remainingTime = Math.max(0, minSpinnerTime - elapsedTime);
+
+    setTimeout(() => hideLoadingSpinner(), remainingTime);
     return true;
 }
 
