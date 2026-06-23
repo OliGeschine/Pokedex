@@ -2,7 +2,7 @@
 
 Ein interaktiver Pokédex, der die [PokéAPI](https://pokeapi.co/) nutzt, um Informationen über alle 1025 Pokémon anzuzeigen.
 
-![Pokédex Preview](assets/img/favicon.png)
+![Pokédex Preview](assets/img/git_readme_logo.png)
 
 ## ✨ Features
 
@@ -68,7 +68,7 @@ pokedex/
 
 1. **Repository klonen**
    ```bash
-   git clone https://github.com/DEIN-USERNAME/pokedex.git
+   git clone https://github.com/OliGeschine/pokedex.git
    cd pokedex
    ```
 
@@ -142,9 +142,9 @@ Dieses Projekt ist unter der MIT-Lizenz lizenziert.
 
 ## 📧 Kontakt
 
-Dein Name - [@dein-twitter](https://twitter.com/dein-twitter)
+Oliver Geschine - [@dein-linkedin](https://www.linkedin.com/in/oliver-geschine-a71230404/)
 
-Projekt Link: [https://github.com/DEIN-USERNAME/pokedex](https://github.com/DEIN-USERNAME/pokedex)
+Projekt Link: [https://github.com/OliGeschine/pokedex](https://github.com/OliGeschine/pokedex)
 
 ---
 
