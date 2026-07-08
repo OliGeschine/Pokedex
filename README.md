@@ -22,7 +22,7 @@ Ein interaktiver Pokédex, der die [PokéAPI](https://pokeapi.co/) nutzt, um Inf
 
 ## 🚀 Live Demo
 
-[https//:www.oliver-geschine.de/pokedex/index.html]
+[Zum Pokedex](https//:www.oliver-geschine.de/pokedex/index.html)
 
 ## 📸 Screenshots
 
